@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
@@ -23,12 +23,14 @@ public class UserController {
     @GetMapping
     public String showAllUserPage(@ModelAttribute("user") User user, @ModelAttribute("message") String message,
                                   @ModelAttribute("messageType") String messageType) {
-        return "user/user-list";
+        return "user/users";
     }
 
     @PostMapping
     public String postLogin(User user, RedirectAttributes redirectAttributes) {
-        return null;
+
+            return "redirect:/";
+
 
 
 

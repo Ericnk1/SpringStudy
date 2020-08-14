@@ -29,7 +29,7 @@ public class LoginController {
         if (isValid){
             redirectAttributes.addFlashAttribute("message", "login successful!");
             redirectAttributes.addFlashAttribute("messageType", "success");
-            return "redirect:/";
+            return "redirect:/user";
         } else {
             redirectAttributes.addFlashAttribute("message", "invalid username or password!");
             redirectAttributes.addFlashAttribute("messageType", "error");
