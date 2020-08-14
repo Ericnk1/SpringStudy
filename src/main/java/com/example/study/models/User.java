@@ -2,10 +2,8 @@ package com.example.study.models;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -15,4 +13,10 @@ public class User {
     private Long id;
     private String username;
     private String password;
+
+    @OneToOne
+    private School school;
+
+    @OneToMany
+    private List<Course> courses;
 }
