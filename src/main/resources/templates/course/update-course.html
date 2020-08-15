@@ -2,25 +2,33 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Study App-Home</title>
+    <title>Create course</title>
     <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" rel="stylesheet">
+
 </head>
 <body>
 <div class="container-fluid">
-    <div class="jumbotron jumbotron-fluid">
-        <h1 class="display-4">Welcome to Study app!</h1>
+    <div class="jumbotron">
+        <h1 class="display-4">Update Course</h1>
+        <a class="btn btn-warning" href="/course" role="button">Course list</a>
 
-        <div class="alert alert-success" role="alert" th:if="${isLoggedIn}">
+        <div class="alert alert-danger" role="alert" th:if="${messageType} == 'error'">
             <span th:text="${message}"></span>
         </div>
-        <div th:if="${isLoggedIn}">
-            <a class="btn btn-warning" href="/user" role="button">User list</a>
-            <a class="btn btn-warning" href="/school" role="button">School list</a>
-        </div>
 
-        <a class="btn btn-primary" href="/login" role="button" th:if="${!isLoggedIn}">Login</a>
-        <a class="btn btn-primary" href="/signup" role="button" th:if="${!isLoggedIn}">Signup</a>
+        <form action="#" method="post" th:action="@{/course/update/{id}(id=${course.id})}" th:object="${course}">
+            <div class="form-group">
+                <label for="name">Course name</label>
+                <input class="form-control" id="name" required th:field="*{name}" type="text">
+            </div>
+            <div class="form-group">
+                <label for="duration">Duration</label>
+                <input class="form-control" id="duration" required th:field="*{duration}" type="text">
+            </div>
+            <input id="active" th:field="*{active}" type="hidden">
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </form>
     </div>
 </div>
 

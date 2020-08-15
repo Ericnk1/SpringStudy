@@ -17,4 +17,5 @@ public class School {
     private String name;
     private String city;
     private String phone;
+    private boolean isActive;
 }

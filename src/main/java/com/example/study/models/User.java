@@ -14,9 +14,9 @@ public class User {
     private String username;
     private String password;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.MERGE)
     private School school;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.MERGE)
     private List<Course> courses;
 }

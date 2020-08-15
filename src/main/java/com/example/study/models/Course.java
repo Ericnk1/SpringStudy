@@ -16,4 +16,5 @@ public class Course {
 
     private String name;
     private Double durationHours;
+    private boolean isActive;
 }

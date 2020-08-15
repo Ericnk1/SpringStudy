@@ -22,6 +22,13 @@ public interface SchoolService {
     List<School> getAllSchools();
 
     /**
+     * To get list of active schools
+     *
+     * @return list of schools
+     */
+    List<School> getActiveSchools();
+
+    /**
      * To find school by name
      *
      * @param name School name
@@ -43,4 +50,25 @@ public interface SchoolService {
      * @param school School
      */
     void updateSchool(School school);
+
+    /**
+     * To delete school by id
+     *
+     * @param id School id
+     */
+    void deleteSchoolById(Long id);
+
+    /**
+     * To delete school from database completely by id
+     *
+     * @param id School id
+     */
+    void fullDeleteSchoolById(Long id);
+
+    /**
+     * To restore school by id
+     *
+     * @param id School id
+     */
+    void restoreSchoolById(Long id);
 }
