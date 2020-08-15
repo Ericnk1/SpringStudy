@@ -1,14 +1,14 @@
 package com.example.study.controllers;
 
 import com.example.study.models.User;
-import com.example.study.repositories.UserRepository;
+import com.example.study.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -18,21 +18,13 @@ import java.util.Optional;
 public class UserController {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @GetMapping
-    public String showAllUserPage(@ModelAttribute("user") User user, @ModelAttribute("message") String message,
-                                  @ModelAttribute("messageType") String messageType) {
-        return "user/users";
+    public String showAllUserPage(Model model) {
+        model.addAttribute("users", userService.getAllUsers());
+        return "user/user-list";
     }
 
-    @PostMapping
-    public String postLogin(User user, RedirectAttributes redirectAttributes) {
 
-            return "redirect:/";
-
-
-
-
-    }
 }
