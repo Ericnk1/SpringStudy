@@ -31,6 +31,9 @@
                 <label for="password">Password</label>
                 <input class="form-control" id="password" required th:field="*{password}" type="password">
             </div>
+            <select class="custom-select" th:field="*{authority.id}">
+                <option th:each="authority: ${authorities}" th:text="${authority.name.replace('-',' ')}" th:value="${authority.id}"></option>
+            </select>
 
             <select class="custom-select" th:field="*{school.id}">
                 <option th:each="school: ${schools}" th:text="${school.name}" th:value="${school.id}"></option>

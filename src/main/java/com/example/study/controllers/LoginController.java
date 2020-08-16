@@ -18,23 +18,23 @@ public class LoginController {
     private LoginService loginService;
 
     @GetMapping
-    public String showLoginPage(@ModelAttribute("login") Login login,@ModelAttribute("message") String message,
+    public String showLoginPage(@ModelAttribute("login") Login login, @ModelAttribute("message") String message,
                                 @ModelAttribute("messageType") String messageType) {
         return "auth/login";
     }
+
     @PostMapping
-    public String postLogin(Login login, RedirectAttributes redirectAttributes){
+    public String postLogin(Login login, RedirectAttributes redirectAttributes) {
         boolean isValid = loginService.isLoginValid(login);
 
-        if (isValid){
-            redirectAttributes.addFlashAttribute("message", "login successful!");
+        if (isValid) {
+            redirectAttributes.addFlashAttribute("message", "Login successful!");
             redirectAttributes.addFlashAttribute("messageType", "success");
-            return "redirect:/user";
+            return "redirect:/";
         } else {
-            redirectAttributes.addFlashAttribute("message", "invalid username or password!");
+            redirectAttributes.addFlashAttribute("message", "Invalid username or password!");
             redirectAttributes.addFlashAttribute("messageType", "error");
             return "redirect:/login";
         }
-
     }
 }

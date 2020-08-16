@@ -17,6 +17,9 @@ public class User {
     @OneToOne(cascade = CascadeType.MERGE)
     private School school;
 
+    @OneToOne(cascade = CascadeType.MERGE)
+    private Authority authority;
+
     @OneToMany(cascade = CascadeType.MERGE)
     private List<Course> courses;
 }
