@@ -4,91 +4,64 @@ import com.example.study.models.School;
 import com.example.study.models.User;
 import com.example.study.services.SchoolService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-@Controller
+import javax.validation.Valid;
+import java.util.Date;
+import java.util.List;
+
+@RestController
 @RequestMapping("/school")
 public class SchoolController {
 
     @Autowired
     private SchoolService schoolService;
 
-    @GetMapping("/create")
-    public String showCreateSchoolPage(@ModelAttribute("school") School school,
-                                       @ModelAttribute("message") String message,
-                                       @ModelAttribute("messageType") String messageType) {
-        return "school/create-school";
-    }
-
     @PostMapping
-    public String createSchool(School school, RedirectAttributes redirectAttributes) {
-        boolean isSchoolExists = schoolService.findSchoolByName(school.getName()).isPresent();
-
-        if (!isSchoolExists) {
+    public ResponseEntity<?> createSchool(@RequestBody School school) {
             schoolService.createSchool(school);
-            redirectAttributes.addFlashAttribute("message", "School created successfully!");
-            redirectAttributes.addFlashAttribute("messageType", "success");
-            return "redirect:/school";
-        } else {
-            redirectAttributes.addFlashAttribute("message", "School already exists!");
-            redirectAttributes.addFlashAttribute("messageType", "error");
-            return "redirect:/school/create";
-        }
+            return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
 
     @GetMapping
-    public String showSchoolList(Model model) {
-        model.addAttribute("schools", schoolService.getAllSchools());
-        return "school/list-school";
+    public List<School> showSchoolList(Model model) {
+        return schoolService.getAllSchools();
     }
 
-    @GetMapping("/update/{id}")
-    public String showUpdateSchoolPage(@PathVariable("id") Long id, Model model,
-                                       @RequestParam(value = "school", required = false) School school,
-                                       @ModelAttribute("message") String message,
-                                       @ModelAttribute("messageType") String messageType) {
-        if (school == null) {
-            schoolService.findSchoolById(id).ifPresent(foundSchool -> model.addAttribute("school", foundSchool));
-        }
 
-        return "school/update-school";
-    }
-
-    @PostMapping("/update/{id}")
-    public String updateSchool(@PathVariable("id") Long id, School school, RedirectAttributes redirectAttributes) {
-        boolean isSchoolExists = schoolService.findSchoolById(id).isPresent();
-
-        if (isSchoolExists) {
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity updateSchool(@RequestBody School school) {
             schoolService.updateSchool(school);
-            redirectAttributes.addFlashAttribute("message", "School updated successfully!");
-            redirectAttributes.addFlashAttribute("messageType", "success");
-            return "redirect:/school";
-        } else {
-            redirectAttributes.addFlashAttribute("message", "School not found!");
-            redirectAttributes.addFlashAttribute("messageType", "error");
-            return "redirect:/school/create";
-        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setDate(new Date().toInstant());
+            return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteSchool(@PathVariable Long id) {
+    public ResponseEntity deleteSchool(@PathVariable Long id) {
         schoolService.deleteSchoolById(id);
-        return "redirect:/school";
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/full-delete/{id}")
-    public String fullDeleteSchool(@PathVariable Long id) {
+    public ResponseEntity fullDeleteSchool(@PathVariable Long id) {
         schoolService.fullDeleteSchoolById(id);
-        return "redirect:/school";
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/restore/{id}")
-    public String restoreSchool(@PathVariable Long id) {
+    public ResponseEntity restoreSchool(@PathVariable Long id) {
         schoolService.restoreSchoolById(id);
-        return "redirect:/school";
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 

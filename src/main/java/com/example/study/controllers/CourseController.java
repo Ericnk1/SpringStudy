@@ -23,7 +23,7 @@ public class CourseController {
     }
 
     @PostMapping
-    public String createSchool(Course course, RedirectAttributes redirectAttributes) {
+    public String createCourse(Course course, RedirectAttributes redirectAttributes) {
         boolean isCourseExists = courseService.findCourseByName(course.getName()).isPresent();
 
         if (!isCourseExists) {
