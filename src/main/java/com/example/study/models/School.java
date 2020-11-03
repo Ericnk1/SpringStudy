@@ -1,14 +1,14 @@
 package com.example.study.models;
 
+import com.example.study.utils.validation.ValidSchool;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
+//@ValidSchool
 public class School {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,4 +18,5 @@ public class School {
     private String city;
     private String phone;
     private boolean isActive;
+
 }

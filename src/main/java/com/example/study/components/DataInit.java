@@ -27,11 +27,15 @@ public class DataInit {
     private SchoolService schoolService;
 
     @Autowired
+    private CourseService courseService;
+
+    @Autowired
     private AuthorityService authorityService;
 
     @PostConstruct
     public void initData() {
         initSchoolData();
+        initCourseData();
         initAuthorityData();
         initUserData();
     }
@@ -78,6 +82,15 @@ public class DataInit {
 
         if (!schoolService.findSchoolByName(school.getName()).isPresent()) {
             schoolService.createSchool(school);
+        }
+    }
+
+    private void initCourseData(){
+        Course course = new Course();
+        course.setName("Angular for beginners");
+        course.setDurationHours(06.00);
+        if (!courseService.findCourseByName(course.getName()).isPresent()){
+            courseService.createCourse(course);
         }
     }
 

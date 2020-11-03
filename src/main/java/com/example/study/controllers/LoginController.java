@@ -1,40 +1,27 @@
 package com.example.study.controllers;
 
+import com.example.study.exceptions.InvalidLoginException;
 import com.example.study.models.Login;
 import com.example.study.models.User;
 import com.example.study.services.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-@Controller
+@RestController
 @RequestMapping("/login")
 public class LoginController {
     @Autowired
     private LoginService loginService;
 
-    @GetMapping
-    public String showLoginPage(@ModelAttribute("login") Login login, @ModelAttribute("message") String message,
-                                @ModelAttribute("messageType") String messageType) {
-        return "auth/login";
-    }
 
     @PostMapping
-    public String postLogin(Login login, RedirectAttributes redirectAttributes) {
-        boolean isValid = loginService.isLoginValid(login);
+    public ResponseEntity<?> postLogin(@RequestBody Login login) throws InvalidLoginException {
 
-        if (isValid) {
-            redirectAttributes.addFlashAttribute("message", "Login successful!");
-            redirectAttributes.addFlashAttribute("messageType", "success");
-            return "redirect:/";
-        } else {
-            redirectAttributes.addFlashAttribute("message", "Invalid username or password!");
-            redirectAttributes.addFlashAttribute("messageType", "error");
-            return "redirect:/login";
-        }
+        loginService.validateLogin(login);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 }
