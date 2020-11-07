@@ -22,4 +22,6 @@ public class User {
 
     @OneToMany(cascade = CascadeType.MERGE)
     private List<Course> course;
+
+    private boolean isActive;
 }
