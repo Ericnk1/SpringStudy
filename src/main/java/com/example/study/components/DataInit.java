@@ -52,6 +52,7 @@ public class DataInit {
             user.setPassword("123456");
             user.setSchool(optionalSchool.get());
             user.setAuthority(optionalAuthority.get());
+            user.setActive(true);
 
             if (!userService.findUserByUsername(user.getUsername()).isPresent()) {
                 userService.createUser(user);
@@ -79,6 +80,7 @@ public class DataInit {
         school.setName("Tallinn International school");
         school.setCity("Tallinn");
         school.setPhone("94856735");
+        school.setActive(true);
 
         if (!schoolService.findSchoolByName(school.getName()).isPresent()) {
             schoolService.createSchool(school);
@@ -89,6 +91,7 @@ public class DataInit {
         Course course = new Course();
         course.setName("Angular for beginners");
         course.setDurationHours(06.00);
+        course.setActive(true);
         if (!courseService.findCourseByName(course.getName()).isPresent()){
             courseService.createCourse(course);
         }

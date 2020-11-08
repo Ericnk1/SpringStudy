@@ -1,33 +1,29 @@
 package com.example.study.controllers;
 
-import com.example.study.models.Login;
 import com.example.study.models.User;
 import com.example.study.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-@Controller
+@RestController
 @RequestMapping("/signup")
 public class SignupController {
 
     @Autowired
     private UserService userService;
 
-    @Autowired
+/*    @Autowired
     private SchoolService schoolService;
 
     @Autowired
     private CourseService courseService;
 
     @Autowired
-    private AuthorityService authorityService;
+    private AuthorityService authorityService;*/
 
-    @GetMapping
+    /*@GetMapping
     public String showSignupPage(@ModelAttribute("user") User user, @ModelAttribute("message") String message,
                                  @ModelAttribute("messageType") String messageType, Model model) {
 
@@ -51,7 +47,7 @@ public class SignupController {
             redirectAttributes.addFlashAttribute("messageType", "error");
             return "redirect:/signup";
         }
-    }
+    }*/
 
     @PostMapping
     public ResponseEntity<?> addUser(@RequestBody User user){

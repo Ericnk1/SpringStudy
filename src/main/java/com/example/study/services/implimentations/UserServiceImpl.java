@@ -1,6 +1,5 @@
 package com.example.study.services.implimentations;
 
-import com.example.study.models.School;
 import com.example.study.models.User;
 import com.example.study.repositories.UserRepository;
 import com.example.study.services.UserService;
