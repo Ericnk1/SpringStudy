@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -18,7 +19,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void createUser(User user) {
-
+        userRepository.save(user);
     }
 
     @Override
@@ -34,5 +35,45 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    @Override
+    public List<User> getActiveUsers() {
+        return getAllUsers().stream()
+                .filter(User::isActive)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Optional<User> findUserById(Long id) {
+        return userRepository.findById(id);
+    }
+
+    @Override
+    public void updateUser(User user) {
+        userRepository.saveAndFlush(user);
+    }
+
+    @Override
+    public void deleteUserById(Long id) {
+        findUserById(id).ifPresent(user -> {
+            user.setActive(false);
+            updateUser(user);
+        });
+    }
+
+    @Override
+    public void fullDeleteUserById(Long id) {
+        findUserById(id).ifPresent(user -> {
+            userRepository.delete(user);
+        });
+    }
+
+    @Override
+    public void restoreUserById(Long id) {
+        findUserById(id).ifPresent(user -> {
+            user.setActive(true);
+            updateUser(user);
+        });
     }
 }

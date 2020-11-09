@@ -10,5 +10,6 @@ public interface LoginService {
      *
      * @param login login
      */
-    void validateLogin(Login login) throws InvalidLoginException;
+    void
+    validateLogin(Login login) throws InvalidLoginException;
 }
