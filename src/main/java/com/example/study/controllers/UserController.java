@@ -21,6 +21,12 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @PostMapping
+    public ResponseEntity<?> createUser(@RequestBody User user) {
+        userService.createUser(user);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
     @GetMapping
     public List<User> getAllUsers() {
          return userService.getAllUsers();

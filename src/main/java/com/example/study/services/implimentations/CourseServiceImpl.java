@@ -18,7 +18,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public void createCourse(Course course) {
-        course.isActive();
+        course.setActive(true);
         courseRepository.save(course);
 
     }
