@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/signup")
 public class SignupController {
@@ -49,9 +50,9 @@ public class SignupController {
         }
     }*/
 
-    @PostMapping
+   /* @PostMapping
     public ResponseEntity<?> addUser(@RequestBody User user){
         userService.createUser(user);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
-    }
+    }*/
 }
