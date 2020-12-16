@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 import java.util.List;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/course")
 public class CourseController {
@@ -21,7 +22,7 @@ public class CourseController {
     private CourseService courseService;
 
     @PostMapping
-    public ResponseEntity<?> createCourse(@RequestBody Course course) {
+    public ResponseEntity<String> createCourse(@RequestBody Course course) {
         courseService.createCourse(course);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -32,9 +33,12 @@ public class CourseController {
         return courseService.getAllCourses();
     }
 
+    @RequestMapping("/active")
+    public List<Course> ActiveCourseList(Model model) {return courseService.getActiveCourses();}
+
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity updateCourse(@RequestBody Course course) {
+    public ResponseEntity<String> updateCourse(@RequestBody Course course) {
         courseService.updateCourse(course);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -42,20 +46,20 @@ public class CourseController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/delete/{id}")
-    public ResponseEntity deleteCourse(@PathVariable Long id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteCourse(@PathVariable(name = "id")  Long id) {
         courseService.deleteCourseById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/full-delete/{id}")
-    public ResponseEntity fullDeleteCourse(@PathVariable Long id) {
+    public ResponseEntity<String> fullDeleteCourse(@PathVariable Long id) {
         courseService.fullDeleteCourseById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/restore/{id}")
-    public ResponseEntity restoreCourse(@PathVariable Long id) {
+    public ResponseEntity<String> restoreCourse(@PathVariable Long id) {
         courseService.restoreCourseById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

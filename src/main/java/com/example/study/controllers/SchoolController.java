@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 import java.util.List;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/school")
 public class SchoolController {
@@ -20,7 +21,7 @@ public class SchoolController {
     private SchoolService schoolService;
 
     @PostMapping
-    public ResponseEntity<?> createSchool(@RequestBody School school) {
+    public ResponseEntity<String> createSchool(@RequestBody School school) {
             schoolService.createSchool(school);
             return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -31,9 +32,12 @@ public class SchoolController {
         return schoolService.getAllSchools();
     }
 
+    @RequestMapping("/active")
+    public List<School> activeSchoolsList(Model model) {return schoolService.getActiveSchools();}
+
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity updateSchool(@RequestBody School school) {
+    public ResponseEntity<String> updateSchool(@RequestBody School school) {
             schoolService.updateSchool(school);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -41,20 +45,20 @@ public class SchoolController {
             return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/delete/{id}")
-    public ResponseEntity deleteSchool(@PathVariable Long id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteSchool(@PathVariable Long id) {
         schoolService.deleteSchoolById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/full-delete/{id}")
-    public ResponseEntity fullDeleteSchool(@PathVariable Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<String> fullDeleteSchool(@PathVariable Long id) {
         schoolService.fullDeleteSchoolById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/restore/{id}")
-    public ResponseEntity restoreSchool(@PathVariable Long id) {
+    public ResponseEntity<String> restoreSchool(@PathVariable Long id) {
         schoolService.restoreSchoolById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

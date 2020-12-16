@@ -15,6 +15,7 @@ import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static com.example.study.utils.Constants.Security.*;
 
@@ -37,28 +38,30 @@ public class DataInit {
         initSchoolData();
         initCourseData();
         initAuthorityData();
-        initUserData();
+        //initUserData();
     }
 
 
     // PRIVATE METHODS //
-    private void initUserData() {
+    /*private void initUserData() {
         Optional<Authority> optionalAuthority = authorityService.findAuthorityByName(AUTHORITY_ADMIN);
         Optional<School> optionalSchool = schoolService.findSchoolByName("Tallinn International school");
+        List<Course> courseList = courseService.getAllCourses();
 
-        if (optionalAuthority.isPresent() && optionalSchool.isPresent()) {
+        if (optionalAuthority.isPresent() && optionalSchool.isPresent() && !courseList.isEmpty()) {
             User user = new User();
             user.setUsername("admin@study.com");
             user.setPassword("123456");
             user.setSchool(optionalSchool.get());
             user.setAuthority(optionalAuthority.get());
+            user.setCourse(courseList);
             user.setActive(true);
 
             if (!userService.findUserByUsername(user.getUsername()).isPresent()) {
                 userService.createUser(user);
             }
         }
-    }
+    }*/
 
     private void initAuthorityData() {
         Authority authorityAdmin = new Authority();
