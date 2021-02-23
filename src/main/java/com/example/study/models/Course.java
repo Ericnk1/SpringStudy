@@ -17,7 +17,8 @@ public class Course {
     private Double durationHours;
     private boolean isActive;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @ManyToOne
     private User user;
 
     @Override
