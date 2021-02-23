@@ -20,7 +20,7 @@ public class User {
     @OneToOne(cascade = CascadeType.MERGE)
     private Authority authority;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Course> course;
 
     private boolean isActive;
