@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -30,6 +31,11 @@ public class SchoolController {
     @GetMapping
     public List<School> showSchoolList(Model model) {
         return schoolService.getAllSchools();
+    }
+
+    @GetMapping("/school/{id}")
+    public Optional<School> getEmployee(@PathVariable Long id){
+        return schoolService.findSchoolById(id);
     }
 
     @RequestMapping("/active")
