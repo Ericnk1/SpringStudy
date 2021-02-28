@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -30,6 +31,11 @@ public class UserController {
     @GetMapping
     public List<User> getAllUsers() {
          return userService.getAllUsers();
+    }
+
+    @GetMapping("/user/{id}")
+    public Optional<User> getUserById(@PathVariable Long id){
+        return userService.findUserById(id);
     }
 
     @RequestMapping("/active")

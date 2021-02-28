@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -31,6 +32,11 @@ public class CourseController {
     @GetMapping
     public List<Course> showCourseList(Model model) {
         return courseService.getAllCourses();
+    }
+
+    @GetMapping("/course/{id}")
+    public Optional<Course> getCourseById(@PathVariable Long id){
+        return courseService.findCourseById(id);
     }
 
     @RequestMapping("/active")
