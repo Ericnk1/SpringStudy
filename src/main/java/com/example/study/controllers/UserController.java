@@ -25,8 +25,6 @@ public class UserController {
     private UserService userService;
     @PostMapping
     public ResponseEntity<String> createUser(@RequestBody User user) {
-        Course course = new Course();
-        user.setCourse((List<Course>) course);
         userService.createUser(user);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
