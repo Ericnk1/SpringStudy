@@ -1,13 +1,9 @@
-package com.example.study.services.implimentations;
+package com.example.study.services.implementations;
 
 
-import com.example.study.components.DataInit;
 import com.example.study.exceptions.InvalidLoginException;
 import com.example.study.models.Login;
-import com.example.study.models.School;
 import com.example.study.models.User;
-import com.example.study.repositories.SchoolRepository;
-import com.example.study.repositories.UserRepository;
 import com.example.study.services.LoginService;
 import com.example.study.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

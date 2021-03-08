@@ -1,5 +1,6 @@
 package com.example.study.controllers;
 
+import com.example.study.models.Course;
 import com.example.study.models.User;
 import com.example.study.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,8 @@ public class UserController {
     private UserService userService;
     @PostMapping
     public ResponseEntity<String> createUser(@RequestBody User user) {
+        Course course = new Course();
+        user.setCourse((List<Course>) course);
         userService.createUser(user);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
