@@ -18,10 +18,11 @@ public class Course {
     private boolean isActive;
 
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
 
-    @Override
+    /*@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Course )) return false;
@@ -31,6 +32,6 @@ public class Course {
     @Override
     public int hashCode() {
         return getClass().hashCode();
-    }
+    }*/
 
 }
