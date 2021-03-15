@@ -5,6 +5,8 @@ import lombok.Data;
 import javax.persistence.*;
 import java.util.List;
 
+import static javax.persistence.FetchType.LAZY;
+
 @Data
 @Entity
 public class User {
@@ -20,7 +22,7 @@ public class User {
     @OneToOne(cascade = CascadeType.MERGE)
     private Authority authority;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", fetch = LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Course> course;
 
     private boolean isActive;

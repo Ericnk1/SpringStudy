@@ -21,8 +21,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void createUser(User user) {
-        List<Course> courseList = new ArrayList<>();
-        user.setCourse(courseList);
         user.setActive(true);
         userRepository.save(user);
     }
