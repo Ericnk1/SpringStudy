@@ -3,6 +3,7 @@ package com.example.study.models;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import static javax.persistence.FetchType.LAZY;
@@ -22,8 +23,19 @@ public class User {
     @OneToOne(cascade = CascadeType.MERGE)
     private Authority authority;
 
-    @OneToMany(mappedBy = "user", fetch = LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Course> course;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    //@JoinColumn("user_id")
+    private List<Course> courses = new ArrayList<>();
+
+    public void addCourse(Course course) {
+        courses.add(course);
+        course.setUser(this);
+    }
+
+    public void removeCourse(Course course) {
+        courses.remove(course);
+        course.setUser(null);
+    }
 
     private boolean isActive;
 }
