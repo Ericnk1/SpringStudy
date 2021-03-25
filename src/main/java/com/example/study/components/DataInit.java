@@ -19,8 +19,8 @@ import java.util.stream.Collectors;
 
 import static com.example.study.utils.Constants.Security.*;
 
-//@Component
-/*public class DataInit {
+@Component
+public class DataInit {
     @Autowired
     private UserService userService;
 
@@ -105,4 +105,4 @@ import static com.example.study.utils.Constants.Security.*;
             authorityService.createAuthority(authority);
         }
     }
-}*/
+}
