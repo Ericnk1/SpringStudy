@@ -38,12 +38,12 @@ public class DataInit {
         initSchoolData();
         initCourseData();
         initAuthorityData();
-        //initUserData();
+        initUserData();
     }
 
 
     // PRIVATE METHODS //
-    /*private void initUserData() {
+    private void initUserData() {
         Optional<Authority> optionalAuthority = authorityService.findAuthorityByName(AUTHORITY_ADMIN);
         Optional<School> optionalSchool = schoolService.findSchoolByName("Tallinn International school");
         List<Course> courseList = courseService.getAllCourses();
@@ -54,14 +54,14 @@ public class DataInit {
             user.setPassword("123456");
             user.setSchool(optionalSchool.get());
             user.setAuthority(optionalAuthority.get());
-            user.setCourse(courseList);
+            user.setCourses(courseList);
             user.setActive(true);
 
             if (!userService.findUserByUsername(user.getUsername()).isPresent()) {
                 userService.createUser(user);
             }
         }
-    }*/
+    }
 
     private void initAuthorityData() {
         Authority authorityAdmin = new Authority();
